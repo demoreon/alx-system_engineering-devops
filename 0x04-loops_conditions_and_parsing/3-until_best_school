@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-#Creating a script that uses an until loop
-x=0
-until [ $x -gt 9 ]
+# This script is displaying "Best School" 10 times
+n=0
+until (( n == 10 ))
 do
-	echo "Holberton School"
-	((x++))
+    echo "Best School"
+    (( n++ ))
 done

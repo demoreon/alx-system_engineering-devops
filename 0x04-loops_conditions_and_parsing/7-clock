@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
-#Creating a script that uses a nested loop
-hour=0
-while [ $hour -le 12 ]
+# Displays hours: 0-12, minutes 1-59
+
+h=0
+while [ "$h" -le 12 ]
 do
-    echo "Hour: $hour"
-    minutes=1
-    while [ $minutes -lt 60 ]
+    echo "Hour: $h"
+    (( h++ ))
+
+    m=1
+    while [ "$m" -le 59 ]
     do
-	echo "$minutes"
-	((minutes++))
+	echo "$m"
+	(( m++ ))
     done
-    ((hour++))
 done
