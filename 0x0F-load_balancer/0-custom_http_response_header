@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Configures my nginx server and add a custom header
+
+# Execute the scripts to install and configure Nginx
+sudo bash /home/ubuntu/1-install_nginx_web_server
+sudo bash /home/ubuntu/3-redirection
+sudo bash /home/ubuntu/4-not_found_page_404
+
+# Modify Nginx config to include custom header
+sudo sed -i '/error_page 404/a \\\tadd_header X-Served-By $hostname;' /etc/nginx/sites-enabled/default
+# Restart Nginx
+sudo service nginx restart
+# Ignore shellcheck warning
+# shellcheck disable=SC2154
