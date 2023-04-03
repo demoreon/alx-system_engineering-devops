@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
-# Configures my nginx server and add a custom header
+# set up nginx server with a custom header
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo ufw allow 'Nginx HTTP'
 
-sudo chown -R "$USER":"$USER" /var/www/html/index.nginx-debian.html
-sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/default
-sudo chown -R "$USER":"$USER" /var/www/html
-
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
 echo "Ceci n'est pas une page" > /var/www/html/404.html
 
-config=\
+configuration=\
 "server {
         listen 80 default_server;
         listen [::]:80 default_server;
@@ -27,12 +23,12 @@ config=\
         location  /404.html {
             internal;
         }
-        
+
         if (\$request_filename ~ redirect_me){
             rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
         }
 }"
 
-echo -e "$config" > /etc/nginx/sites-enabled/default
+echo -e "$configuration" > /etc/nginx/sites-enabled/default
 
 sudo service nginx restart
