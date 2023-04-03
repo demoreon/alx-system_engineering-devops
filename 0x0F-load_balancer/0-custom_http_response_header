@@ -1,14 +1,38 @@
 #!/usr/bin/env bash
 # Configures my nginx server and add a custom header
 
-# Execute the scripts to install and configure Nginx
-sudo bash /home/ubuntu/1-install_nginx_web_server
-sudo bash /home/ubuntu/3-redirection
-sudo bash /home/ubuntu/4-not_found_page_404
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
 
-# Modify Nginx config to include custom header
-sudo sed -i '/error_page 404/a \\\tadd_header X-Served-By $hostname;' /etc/nginx/sites-enabled/default
-# Restart Nginx
+sudo chown -R "$USER":"$USER" /var/www/html/index.nginx-debian.html
+sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/default
+sudo chown -R "$USER":"$USER" /var/www/html
+
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+
+config=\
+"server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+               root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+        server_name _;
+	add_header X-Served-By \$hostname;
+        location / {
+		try_files \$uri \$uri/ =404;
+        }
+        error_page 404 /404.html;
+        location  /404.html {
+            internal;
+        }
+        
+        if (\$request_filename ~ redirect_me){
+            rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+        }
+}"
+
+echo -e "$config" > /etc/nginx/sites-enabled/default
+
 sudo service nginx restart
-# Ignore shellcheck warning
-# shellcheck disable=SC2154
