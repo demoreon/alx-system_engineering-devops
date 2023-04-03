@@ -37,10 +37,10 @@ fi
 if [ "$CONFIG_WORDS" -eq 0 ]; then
     echo -e "$HAPROXY_LB_CONFIG" >> $CONFIG_FILE
 else
-    start_tkn="#--$DOMAIN_NAME-params-begin--"
-    end_tkn="#--$DOMAIN_NAME-params-end--"
-    a=$(grep -onE "$start_tkn" < "$CONFIG_FILE" | cut -d : -f1)
-    b=$(grep -onE "$end_tkn" < "$CONFIG_FILE" | cut -d : -f1)
+    start_="#--$DOMAIN_NAME-params-begin--"
+    end_="#--$DOMAIN_NAME-params-end--"
+    a=$(grep -onE "$start_" < "$CONFIG_FILE" | cut -d : -f1)
+    b=$(grep -onE "$end_" < "$CONFIG_FILE" | cut -d : -f1)
     a=$((a - 1))
     b=$((b + 1))
     sed -i "$a,$b"d "$CONFIG_FILE"
@@ -48,7 +48,7 @@ else
 fi
 
 if [ "$(pgrep -c haproxy)" -le 0 ]; then
-    sudo service haproxy start
+    sudo /etc/init.d/haproxy start
 else
-    sudo service haproxy restart
+    sudo /etc/init.d/haproxy restart
 fi
