@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
-# Script that configures a new Ubuntu machine to respect above requirements
-
-sudo apt-get update
-sudo apt-get install -y nginx
+# Script configures a new Ubuntu Box
 
 echo "Hello World!" | sudo tee /var/www/html/index.html
-string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;"
-sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+string_="server_name _;\n\trewrite ^\/redirect_me https\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;"
+sudo sed -i "s/server_name _;/$string_/" /etc/nginx/sites-enabled/default
 
 sudo service nginx restart
