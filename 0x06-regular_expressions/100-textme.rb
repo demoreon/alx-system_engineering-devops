@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
-# script should parse logfile and output [sender],[receiver],[flags]
+# Script parses a file.
 
 puts ARGV[0].scan(/\[(?:from:|to:|flags:)(.*?)\]/).join(",")
