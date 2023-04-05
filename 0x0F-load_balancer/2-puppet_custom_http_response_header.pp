@@ -1,4 +1,4 @@
-#Configuring server with puppy.
+#Configuring a fresh server with puppy.
 
 exec { 'apt-update':
   command => '/usr/bin/apt update',

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# set up nginx server with a custom header
+# set up nginx server with a custom header "X-served"
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
