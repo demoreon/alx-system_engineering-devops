@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# displays "Best School" 10 times, using the for loop.
+# This Displays "Best School" Ten times, using the for/Do loop.
 
 for _ in {1..10}
 do
