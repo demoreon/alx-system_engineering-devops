@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
-# Infinite loop that creates a file with pid, catches signal, and removes file/exits:
-# Ctrl-C (SIGINT), kill (SIGTERM), and ctrl-| (SIGQUIT)
+# Scripts to create and remove file.
 
-rmfile_n_exit()
+rmfile()
 {
     rm -f /var/run/myscript.pid;
     exit
 }
 trap "echo 'Y U no love me?!'" SIGINT
-trap "echo 'I hate the kill command'; rmfile_n_exit" SIGTERM
-trap "echo 'I hate the kill command'; rmfile_n_exit" SIGQUIT
+trap "echo 'I hate the kill command'; rmfile" SIGTERM
+trap "echo 'I hate the kill command'; rmfile" SIGQUIT
 
 
 echo $$ >> /var/run/myscript.pid

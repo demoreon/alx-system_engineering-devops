@@ -1,30 +1,30 @@
 #!/usr/bin/env bash
-# This script Starts/Stops/Restarts manage_my_process script
+# This script manages my_process
 
 argv1=$1
-tmpfile="/var/run/my_process.pid"
+tmp="/var/run/my_process.pid"
 
-startLoop_n_createFile()
+startLoop()
 {
     ./manage_my_process &
     echo "$!" > "$tmpfile"
 }
-killLoop_n_rmFile()
+killLoop()
 {
-    #kill "$(cat "$tmpfile")"
+    #kill "$(cat "$tmp")"
     sudo pkill -f "./manage_my_process"
-    rm "$tmpfile"
+    rm "$tmp"
 }
 case "$argv1" in
     start) echo "manage_my_process started"
-	startLoop_n_createFile
+	startLoop
 	;;
     stop) echo "manage_my_process stopped"
-	killLoop_n_rmFile
+	killLoop
 	;;
     restart) echo "manage_my_process restarted"
-	killLoop_n_rmFile
-	startLoop_n_createFile
+	killLoop
+	startLoop
 	;;
     *) echo "Usage: manage_my_process {start|stop|restart}"
 	;;

@@ -1,9 +1,9 @@
-#include <unistd.h> /* sleep */
-#include <stdlib.h> /* exit */
-#include <stdio.h> /* printf */
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
- * infinite_while - create infinite sleep loop
+ * infinite_while
  * Return: 0
  */
 int infinite_while(void)
@@ -15,21 +15,21 @@ int infinite_while(void)
 	return (0);
 }
 /**
- * main - create 5 zombie processes
- * Return: infinite_while zombies
+ * main - create zombie processes
+ * Return: infinite_while
  */
 int main(void)
 {
-	pid_t zombiePID;
+	pid_t zombie;
 	unsigned int i;
 
 	for (i = 0; i < 5; i++)
 	{
-		zombiePID = fork();
-		if (zombiePID == 0)
+		zombie = fork();
+		if (zombie == 0)
 			exit(0);
 		else
-			printf("Zombie process created, PID: %d\n", zombiePID);
+			printf("Zombie process created, PID: %d\n", zombie);
 	}
 	return (infinite_while());
 }

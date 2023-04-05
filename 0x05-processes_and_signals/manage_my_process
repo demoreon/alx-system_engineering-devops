@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script to be used with 101-manage_my_process
+# This update the my_process file
 
 while (true)
 do
