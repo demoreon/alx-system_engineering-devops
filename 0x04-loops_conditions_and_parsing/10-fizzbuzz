@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# FizzBuzz - print 1 to 100, "Fizz" for multiples of 3,
-# "Buzz" for multiples of 5, and "FizzBuzz" for multiples of 3 and 5
+# This print "Fizz" for multiples of 3,
+# prints "Buzz" for multiples of 5, and "FizzBuzz" for multiples of 3 and 5
 
 for (( i=1; i < 101; i++ ))
 do
