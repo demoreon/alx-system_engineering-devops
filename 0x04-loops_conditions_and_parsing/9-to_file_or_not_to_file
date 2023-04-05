@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script gives info on file (exist? empty? file and not directory?)
+# This tells the status of file/directories.
 
 file="school"
 
