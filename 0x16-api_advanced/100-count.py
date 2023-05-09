@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-import requests
 """reddit construct"""
+
+import requests
 
 
 def count_words(subreddit, word_list, word_count={}, after=None):
