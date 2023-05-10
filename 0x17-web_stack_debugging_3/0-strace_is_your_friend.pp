@@ -1,4 +1,3 @@
-file { '/var/www/html/wp-settings.php':
-  ensure  => file,
-  content => inline_template("<%= File.read('/var/www/html/wp-settings.php').gsub('phpp', 'php') %>"),
-}
+exec { 'fix-wordpress':
+  command => '/bin/echo -n "$(cat /var/www/html/wp-settings.php | sed s/phpp/php/g)" > /var/www/html/wp-settings.php',
+  }
