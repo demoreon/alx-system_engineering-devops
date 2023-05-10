@@ -1,6 +1,6 @@
 # Fixes bad incorrect `phpp` extensions
 
-exec { 'fix-wordpress':
-  command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
-  path    => '/usr/local/bin/:/bin/'
+file { '/var/www/html/wp-settings.php':
+  ensure  => file,
+  content => inline_template("<%= File.read('/var/www/html/wp-settings.php').gsub('phpp', 'php') %>"),
 }
