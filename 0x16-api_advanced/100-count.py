@@ -17,7 +17,7 @@ def count_words(subreddit, word_list, instances=None, after=None, count=0):
     if instances is None:
         instances = {}
 
-    url = f"https://www.reddit.com/r/{subreddit}/hot/.json"
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
     headers = {"User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"}
     params = {"after": after, "count": count, "limit": 100}
     response = requests.get(url, headers=headers, params=params, allow_redirects=False)
@@ -30,24 +30,28 @@ def count_words(subreddit, word_list, instances=None, after=None, count=0):
     after = results.get("after")
     count += results.get("dist")
 
-    for c in results["children"]:
-        title = c["data"]["title"].lower().split()
-        for word in word_list:
-            if word.lower() in title:
-                times = len([t for t in title if t == word.lower()])
-                if word in instances:
-                    instances[word] += times
-                else:
-                    instances[word] = times
+    def process_post(index):
+        if index < len(results["children"]):
+            c = results["children"][index]
+            title = c["data"]["title"].lower().split()
+            for word in word_list:
+                if word.lower() in title:
+                    times = len([t for t in title if t == word.lower()])
+                    if word in instances:
+                        instances[word] += times
+                    else:
+                        instances[word] = times
+            process_post(index+1)
+        else:
+            if after is None:
+                if not instances:
+                    print("")
+                    return
+                instances = sorted(instances.items(), key=lambda x: (-x[1], x[0]))
+                for word, count in instances:
+                    print("{}: {}".format(word, count))
+            else:
+                count_words(subreddit, word_list, instances, after, count)
 
-    if after is None:
-        if not instances:
-            print("")
-            return
-        instances = sorted(instances.items(), key=lambda x: (-x[1], x[0]))
-        for word, count in instances:
-            print(f"{word}: {count}")
-    else:
-        count_words(subreddit, word_list, instances, after, count)
-
+    process_post(0)
 
