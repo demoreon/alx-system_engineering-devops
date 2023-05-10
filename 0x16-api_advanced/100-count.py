@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-"""reddit construct"""
+""" reddit construct"""
 import requests
 
 
